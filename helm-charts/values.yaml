@@ -1,0 +1,115 @@
+# Default values for water-analytics-cluster.
+# Declare variables to be passed into your templates.
+# Variables will overwrite values in each subchart's values.yaml
+
+#######################################
+## Global variables for the flink native kubernetes chart
+chaos-mesh:
+  ## boolean to enable/disable chart
+  enabled: true
+
+
+#######################################
+## Global variables for the flink native kubernetes chart
+flink-native:
+  ## boolean to enable/disable chart
+  enabled: true
+
+  ## The cluster-id is used for identifying a unique Flink cluster.
+  ## The id must only contain lowercase alphanumeric characters and "-".
+  clusterid: "flink-native"
+
+  ## configure the NodePort for external access
+  ## will be configured automatically if left empty
+  nodePort: 30881
+
+
+#########################################
+## Global variables for the grafana chart
+grafana:
+  ## boolean to enable/disable chart
+  enabled: true
+
+  ## configure cluster size
+  replicas: 1
+
+
+#########################################
+## Global variables for the kafka chart
+kafka:
+  ## boolean to enable/disable chart
+  enabled: true
+
+  ## configure cluster size
+  replicaCount: 3
+
+  ## configure default number of partitions per topic
+  numPartitions: 8
+
+  ## configure NodePorts for external access
+  ## length must be the same as replicaCount
+  externalAccess:
+    service:
+      nodePorts:
+        - 32690
+        - 32691
+        - 32692
+
+
+#########################################
+## Global variables for the ksql chart
+ksql-server:
+  ## boolean to enable/disable chart
+  enabled: true
+
+  ## configure cluster size
+  replicaCount: 1
+
+
+############################################
+## Global variables for the prometheus chart
+prometheus:
+  ## boolean to enable/disable chart
+  enabled: true
+
+  ## configure cluster size
+  replicas: 1
+
+
+##########################################
+## Global variables for the rabbitmq chart
+rabbitmq:
+  ## boolean to enable/disable chart
+  enabled: true
+
+  ## configure cluster size
+  replicas: 3
+
+  ## configure NodePorts for external access
+  service:
+      ## Amqp NodePort
+      amqpNodePort: 30778
+
+      ## Amqp NodePort Tls
+      amqpTlsNodePort: 30777
+
+      ## MQTT NodePort
+      mqttNodePort: 31778
+
+      ## MQTT NodePort Tls
+      mqttTlsNodePort: 31777
+
+  ## enable TLS support by setting enabled: false
+  ## and providing a secret containing the certificates
+  ##
+  ## To create the secret:
+  ## kubectl create secret generic rabbitmq-certificates --from-file=./ca.crt \
+  ## --from-file=./tls.crt --from-file=./tls.key
+  tls:
+    enabled: false
+    existingSecret: rabbitmq-certificates
+
+  ## load a definitions file to configure RabbitMQ from a Kubernetes secret
+  loadDefinition:
+    enabled: false
+    existingSecret: load-definition
