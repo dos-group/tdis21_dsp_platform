@@ -70,7 +70,7 @@ auth:
   ## ref: https://www.rabbitmq.com/ssl.html
   ##
   tls:
-    enabled: true
+    enabled: false
     # disable non-tls mqtt and amqp nodeports
     disableNonTlsNodePorts: false
     failIfNoPeerCert: true
@@ -146,7 +146,7 @@ clustering:
 ## Loading a RabbitMQ definitions file to configure RabbitMQ
 ##
 loadDefinition:
-  enabled: true
+  enabled: false
   existingSecret: load-definition
   ## Can be templated if needed, e.g.
   ## existingSecret: "{{ .Release.Name }}-load-definition"

@@ -149,7 +149,7 @@ maxMessageBytes: _1000012
 
 ## Default replication factors for automatically created topics
 ##
-defaultReplicationFactor: 3
+defaultReplicationFactor: 1
 
 ## The replication factor for the offsets topic
 ##

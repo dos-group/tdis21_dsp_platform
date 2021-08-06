@@ -2,6 +2,41 @@
 # Declare variables to be passed into your templates.
 # Variables will overwrite values in each subchart's values.yaml
 
+###########################################
+## Global variables for the cassandra chart
+cassandra:
+  ## boolean to enable/disable chart
+  enabled: true
+
+  ## configure cluster size
+  replicas: 3
+
+  ## configure the cql NodePort for external access
+  ## will be configured automatically if left empty
+  # service:
+  #   nodePorts:
+  #     cql: 30001
+
+  ## configure the database credentials
+  dbUser:
+    user: gis
+    forcePassword: false
+    password: 123456
+
+  ## enable client to node encryption by setting clientEncryption: false
+  ## and adding a secret with the keystore, keystore password, truststore, truststore password
+  ##
+  ## To create a secret:
+  ## kubectl create secret generic cassandra-tls --from-file=keystore=./keystore \
+  ##   --from-file=truststore=./truststore --from-literal=keystore-password=cassandra \
+  ##   --from-literal=truststore-password=cassandra
+  ##
+  ## Comment out tlsEncryptionSecretName if client encryption is disabled
+  cluster:
+    clientEncryption: false
+  #tlsEncryptionSecretName: cassandra-tls
+
+
 #######################################
 ## Global variables for the flink native kubernetes chart
 chaos-mesh:
